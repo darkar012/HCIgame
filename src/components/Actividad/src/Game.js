@@ -1,18 +1,15 @@
-import Screen from "./Screen";
-
 class Game {
 
 
     constructor(actividad) {
         this.actividad = actividad;
         this.mainScreen = null;
-        this.screen = new Screen(this);
     }
 
 
     setup(app) {
 
-        this.title = "Pokemon"
+        this.title = "Pokemón"
         app.createCanvas(1280, 720);
         app.background(0);
         this.mainScreen = app.loadImage('/game/mainScreen.png');
@@ -20,8 +17,8 @@ class Game {
     }
 
     draw(app) {
-        this.screen.drawScreen(app, this.mainScreen);
-        /*switch (this.screen) {
+
+        switch (this.screen) {
             case 0:
                 app.image(this.mainScreen, 0, 0);
                 break;
@@ -37,11 +34,11 @@ class Game {
             case 4:
                 app.image(this.mainScreen, 0, 0);
                 break;
-        }*/
+        }
     }
 
     mousePressed(app) {
-        /*console.log("mouseX = " + app.mouseX);
+        console.log("mouseX = " + app.mouseX);
         console.log("mouseY = " + app.mouseY);
         switch (this.screen) {
             case 0:
@@ -49,20 +46,20 @@ class Game {
                     this.screen = 1;
                 }
                 break;
-                case 1:
-                     app.image(this.mainScreen, 0, 0);
-                     break;
-                 case 2:
-                     app.image(this.mainScreen, 0, 0);
-                     break;
-                 case 3:
-                     app.image(this.mainScreen, 0, 0);
-                     break;
-                 case 4:
-                     app.image(this.mainScreen, 0, 0);
-                     break;*/
+            case 1:
+                app.image(this.mainScreen, 0, 0);
+                break;
+            case 2:
+                app.image(this.mainScreen, 0, 0);
+                break;
+            case 3:
+                app.image(this.mainScreen, 0, 0);
+                break;
+            case 4:
+                app.image(this.mainScreen, 0, 0);
+                break;
+        }
     }
 }
-
 
 export default Game;
