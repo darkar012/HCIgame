@@ -1,6 +1,6 @@
 class Game {
 
-
+    
     constructor(actividad) {
         this.actividad = actividad;
         this.mainScreen = null;
@@ -13,11 +13,10 @@ class Game {
         this.title = "Pokemón"
         app.createCanvas(1280, 720);
         app.background(0);
-        this.mainScreen = app.loadImage('/game/mainScreen.png');
-        this.tutorial1 = app.loadImage()
     }
 
     draw(app) {
+
 
         switch (this.screen) {
             case 0:
