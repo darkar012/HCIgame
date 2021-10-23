@@ -30,6 +30,7 @@ class Game {
         this.tutorial4 = app.loadImage('/game/tutorial4.png');
         this.tutorial5 = app.loadImage('/game/tutorial5.png');
         this.tutorial6 = app.loadImage('/game/tutorial6.png');
+        this.level1 = app.loadImage('/game/level1.png');
 
     }
 
@@ -102,6 +103,10 @@ class Game {
                 break;
             case 6:
                 app.image(this.tutorial6, 0, 0);
+                break;
+            case 7:
+                app.image(this.level1, 0, 0);
+                break;
         }
     }
 }
