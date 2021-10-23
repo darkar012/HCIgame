@@ -36,7 +36,6 @@ class Game {
     draw(app) {
 
         this.drawScreen(app);
-
     }
 
     mousePressed(app) {
@@ -80,7 +79,9 @@ class Game {
         }
     }
 
+
     drawScreen(app) {
+
         switch (this.screen) {
             case 0:
                 app.image(this.mainScreen, 0, 0);
