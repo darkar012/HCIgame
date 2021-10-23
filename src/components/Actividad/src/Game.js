@@ -5,13 +5,13 @@ class Game {
         this.actividad = actividad;
         this.mainScreen = null;
 
-        this.tutorial1=null;
-        this.tutorial2=null;
-        this.tutorial3=null;
-        this.tutorial4=null;
-        this.tutorial5=null;
-        this.tutorial6=null;
-        this.screen=null;
+        this.tutorial1 = null;
+        this.tutorial2 = null;
+        this.tutorial3 = null;
+        this.tutorial4 = null;
+        this.tutorial5 = null;
+        this.tutorial6 = null;
+        this.screen = null;
 
         this.screen = 0;
 
@@ -35,8 +35,8 @@ class Game {
 
     draw(app) {
 
-        this.drawScreen();
-       
+        this.drawScreen(app);
+
     }
 
     mousePressed(app) {
@@ -80,7 +80,7 @@ class Game {
         }
     }
 
-    drawScreen(){
+    drawScreen(app) {
         switch (this.screen) {
             case 0:
                 app.image(this.mainScreen, 0, 0);
@@ -102,8 +102,8 @@ class Game {
                 break;
             case 6:
                 app.image(this.tutorial6, 0, 0);
+        }
     }
-}
 }
 
 export default Game;
