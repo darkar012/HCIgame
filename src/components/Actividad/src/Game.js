@@ -1,5 +1,4 @@
 class Game {
-
     constructor(actividad) {
         this.actividad = actividad;
         this.mainScreen = null;
@@ -10,6 +9,12 @@ class Game {
         this.tutorial4 = null;
         this.tutorial5 = null;
         this.tutorial6 = null;
+
+        this.playerX = 80;
+        this.playerY = 146;
+        this.side = 1;
+        this.screen = 7;
+
         this.screen = null;
         this.level1 = null;
 
@@ -31,22 +36,38 @@ class Game {
         this.block12 = null;
     }
 
-
     setup(app) {
-
-        this.title = "Pokemón"
+        this.title = "Pokemón";
         app.createCanvas(1280, 720);
         app.background(0);
-        this.mainScreen = app.loadImage('/game/mainScreen.png');
-        this.tutorial1 = app.loadImage('/game/tutorial1.png');
-        this.tutorial2 = app.loadImage('/game/tutorial2.png');
-        this.tutorial3 = app.loadImage('/game/tutorial3.png');
-        this.tutorial4 = app.loadImage('/game/tutorial4.png');
-        this.tutorial5 = app.loadImage('/game/tutorial5.png');
-        this.tutorial6 = app.loadImage('/game/tutorial6.png');
-        this.level1 = app.loadImage('/game/level1.png');
+        this.mainScreen = app.loadImage("/game/mainScreen.png");
+        this.tutorial1 = app.loadImage("/game/tutorial1.png");
+        this.tutorial2 = app.loadImage("/game/tutorial2.png");
+        this.tutorial3 = app.loadImage("/game/tutorial3.png");
+        this.tutorial4 = app.loadImage("/game/tutorial4.png");
+        this.tutorial5 = app.loadImage("/game/tutorial5.png");
+        this.tutorial6 = app.loadImage("/game/tutorial6.png");
+        this.level1 = app.loadImage("/game/level1.png");
+
+        this.playerF = app.loadImage("/game/characterfoward.png");
+        this.playerR = app.loadImage("/game/characterright.png");
+        this.playerL = app.loadImage("/game/characterleft.png");
+        this.playerB = app.loadImage("/game/characterback.png");
+
+        this.pikachu = app.loadImage("/game/pikachu.png");
+        this.charmander = app.loadImage("/game/charizard.png");
+        this.bulbasaur = app.loadImage("/game/bulbasaur.png");
+        this.squirtle = app.loadImage("/game/squirtle.png");
+
+        this.life3 = app.loadImage("/game/3hearts.png");
+        this.life2 = app.loadImage("/game/2hearts.png");
+        this.life1 = app.loadImage("/game/1heart.png");
+
+        this.life = 3;
 
         this.levelActivated = false;
+        this.capture = false;
+        this.capturado = false;
 
         this.block1 = app.loadImage('/game/derecha.png');
         this.block2 = app.loadImage('/game/izquierda.png');
@@ -65,44 +86,79 @@ class Game {
     draw(app) {
         this.drawScreen(app);
 
-        this.drawBlocks(28,app);
+        this.drawBlocks(28, app);
 
     }
 
     mousePressed(app) {
         switch (this.screen) {
             case 0:
-                if (app.mouseX > 521 && app.mouseX < 768 && app.mouseY > 421 && app.mouseY < 501) {
+                if (
+                    app.mouseX > 521 &&
+                    app.mouseX < 768 &&
+                    app.mouseY > 421 &&
+                    app.mouseY < 501
+                ) {
                     this.screen = 1;
                 }
                 break;
             case 1:
-                if (app.mouseX > 988 && app.mouseX < 1236 && app.mouseY > 601 && app.mouseY < 680) {
+                if (
+                    app.mouseX > 988 &&
+                    app.mouseX < 1236 &&
+                    app.mouseY > 601 &&
+                    app.mouseY < 680
+                ) {
                     this.screen = 2;
                 }
                 break;
             case 2:
-                if (app.mouseX > 988 && app.mouseX < 1236 && app.mouseY > 601 && app.mouseY < 680) {
+                if (
+                    app.mouseX > 988 &&
+                    app.mouseX < 1236 &&
+                    app.mouseY > 601 &&
+                    app.mouseY < 680
+                ) {
                     this.screen = 3;
                 }
                 break;
             case 3:
-                if (app.mouseX > 988 && app.mouseX < 1236 && app.mouseY > 601 && app.mouseY < 680) {
+                if (
+                    app.mouseX > 988 &&
+                    app.mouseX < 1236 &&
+                    app.mouseY > 601 &&
+                    app.mouseY < 680
+                ) {
                     this.screen = 4;
                 }
                 break;
             case 4:
-                if (app.mouseX > 988 && app.mouseX < 1236 && app.mouseY > 601 && app.mouseY < 680) {
+                if (
+                    app.mouseX > 988 &&
+                    app.mouseX < 1236 &&
+                    app.mouseY > 601 &&
+                    app.mouseY < 680
+                ) {
                     this.screen = 5;
                 }
                 break;
             case 5:
-                if (app.mouseX > 988 && app.mouseX < 1236 && app.mouseY > 601 && app.mouseY < 680) {
+                if (
+                    app.mouseX > 988 &&
+                    app.mouseX < 1236 &&
+                    app.mouseY > 601 &&
+                    app.mouseY < 680
+                ) {
                     this.screen = 6;
                 }
                 break;
             case 6:
-                if (app.mouseX > 988 && app.mouseX < 1236 && app.mouseY > 601 && app.mouseY < 680) {
+                if (
+                    app.mouseX > 988 &&
+                    app.mouseX < 1236 &&
+                    app.mouseY > 601 &&
+                    app.mouseY < 680
+                ) {
                     this.screen = 7;
                 }
 
@@ -114,9 +170,7 @@ class Game {
         }
     }
 
-
     drawScreen(app) {
-
         switch (this.screen) {
             case 0:
                 app.image(this.mainScreen, 0, 0);
@@ -141,15 +195,98 @@ class Game {
                 break;
             case 7:
                 app.image(this.level1, 0, 0);
-                break;
+                if (this.life == 3) {
+                    app.image(this.life3, 1080, 56);
+                } else if (this.life == 2) {
+                    app.image(this.life2, 1080, 56);
+                } else if (this.life == 1) {
+                    app.image(this.life1, 1080, 56);
+                }
+
+
+                if (!this.capturado) {
+                    app.image(this.pikachu, 530, 152);
+                } else {
+                    app.image(this.pikachu, -500, 152);
+                }
+                app.image(this.charmander, 620, 250);
+                app.image(this.squirtle, 80, 260);
+                app.image(this.bulbasaur, 530, 432);
+
+                switch (this.side) {
+                    case 1:
+                        app.image(this.playerF, this.playerX, this.playerY);
+                        break;
+                    case 2:
+                        app.image(this.playerL, this.playerX, this.playerY);
+                        break;
+                    case 3:
+                        app.image(this.playerR, this.playerX, this.playerY);
+                        break;
+                    case 4:
+                        app.image(this.playerB, this.playerX, this.playerY);
+                        break;
+                }
+
+                if (
+                    this.playerX < 52 ||
+                    this.playerX > 785 ||
+                    this.playerY < 138 ||
+                    this.playerY > 420
+                ) {
+                    this.playerX = 80;
+                    this.playerY = 146;
+                    this.capturado = false;
+                    console.log("perdiste");
+                }
         }
     }
 
+
+    keyPressed(app) {
+        let c = app.key;
+
+        if (c == "d") {
+            this.side = 3;
+            this.playerX = this.playerX + 90;
+        } else if (c == "a") {
+            this.side = 2;
+            this.playerX = this.playerX - 90;
+        } else if (c == "w") {
+            this.side = 4;
+            this.playerY = this.playerY - 90;
+        } else if (c == "s") {
+            this.side = 1;
+            this.playerY = this.playerY + 90;
+        } else if (c == " ") {
+            if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
+                console.log("capturado Pikachu");
+                this.capturado = true;
+            } else {
+                console.log("pokémon equivocado");
+                this.capture = false;
+            }
+        } else if (c == "Control") {
+            if (this.capturado) {
+                if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
+                    console.log("Pikachu Liberado");
+                    this.capturado = false;
+                } else {
+                    console.log("lugar equivocado");
+                }
+            }
+        }
+    }
+
+
     blocks(app) {
-
         if (this.levelActivated) {
-
-            if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 211 && app.mouseY < 245) {
+            if (
+                app.mouseX > 852 &&
+                app.mouseX < 1006 &&
+                app.mouseY > 211 &&
+                app.mouseY < 245
+            ) {
                 console.log("DERECHA");
                 let codeRight = 1;
                 this.arrayBloques.push(codeRight);
@@ -241,18 +378,27 @@ class Game {
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (app.mouseX > 898 && app.mouseX < 1052 && app.mouseY > 655 && app.mouseY < 704) {
+            if (
+                app.mouseX > 898 &&
+                app.mouseX < 1052 &&
+                app.mouseY > 655 &&
+                app.mouseY < 704
+            ) {
                 console.log("LIMPIAR");
                 this.arrayBloques = [];
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (app.mouseX > 730 && app.mouseX < 884 && app.mouseY > 655 && app.mouseY < 704) {
+            if (
+                app.mouseX > 730 &&
+                app.mouseX < 884 &&
+                app.mouseY > 655 &&
+                app.mouseY < 704
+            ) {
                 console.log("DESHACER");
                 this.arrayBloques.pop();
                 console.log("arrayBloques= " + this.arrayBloques);
             }
-
         }
 
     }
