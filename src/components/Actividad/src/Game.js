@@ -16,6 +16,19 @@ class Game {
         this.screen = 7;
         this.levelActivated = null;
         this.arrayBloques = [];
+      
+        this.block1=null;
+        this.block2=null;
+        this.block3=null;
+        this.block4=null;
+        this.block5=null;
+        this.block6=null;
+        this.block7=null;
+        this.block8=null;
+        this.block9=null;
+        this.block10=null;
+        this.block11=null;
+        this.block12=null;
     }
 
 
@@ -34,10 +47,26 @@ class Game {
         this.level1 = app.loadImage('/game/level1.png');
 
         this.levelActivated = false;
+
+        this.blockX=28;
+
+        this.block1=app.loadImage('/game/derecha.png');
+        this.block2=app.loadImage('/game/izquierda.png');
+        this.block3=app.loadImage('/game/arriba.png');
+        this.block4=app.loadImage('/game/abajo.png');
+        this.block5=app.loadImage('/game/1vez.png');
+        this.block6=app.loadImage('/game/2veces.png');
+        this.block7=app.loadImage('/game/3veces.png');
+        this.block8=app.loadImage('/game/4veces.png');
+        this.block9=app.loadImage('/game/5veces.png');
+        this.block10=app.loadImage('/game/6veces.png');
+        this.block11=app.loadImage('/game/capturar.png');
+        this.block12=app.loadImage('/game/liberar.png');
     }
 
     draw(app) {
         this.drawScreen(app);
+        this.drawBlocks(28,app);
     }
 
     mousePressed(app) {
@@ -216,6 +245,64 @@ class Game {
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
+        }
+        
+    }
+
+    drawBlocks(posx, app){
+
+        if (this.levelActivated) {
+            for (let index = 0; index < this.arrayBloques.length; index++) {
+            
+                if(this.arrayBloques[index] == 1){
+                    app.image(this.block1, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 2){
+                    app.image(this.block2, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 3){
+                    app.image(this.block3, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 4){
+                    app.image(this.block4, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 5){
+                    app.image(this.block5, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 6){
+                    app.image(this.block6, posx+(176*index), 570);
+                }
+                
+                if(this.arrayBloques[index] == 7){
+                    app.image(this.block7, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 8){
+                    app.image(this.block8, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 9){
+                    app.image(this.block9, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 10){
+                    app.image(this.block10, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 11){
+                    app.image(this.block11, posx+(176*index), 570);
+                }
+    
+                if(this.arrayBloques[index] == 12){
+                    app.image(this.block12, posx+(176*index), 570);
+                }
+                
+            }
         }
         
     }
