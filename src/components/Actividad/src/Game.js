@@ -6,8 +6,10 @@ class Game {
 
     }
 
+
     setup(app) {
         app.createCanvas(1280, 720);
+        app.background(0);
     }
 
     draw(app) {
