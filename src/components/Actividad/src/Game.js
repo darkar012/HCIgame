@@ -4,6 +4,7 @@ class Game {
     constructor(actividad) {
         this.actividad = actividad;
         this.mainScreen = null;
+        this.screen = 0;
     }
 
 
