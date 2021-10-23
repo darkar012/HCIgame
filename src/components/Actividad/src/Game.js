@@ -34,7 +34,6 @@ class Game {
     }
 
     draw(app) {
-
         this.drawScreen(app);
     }
 
