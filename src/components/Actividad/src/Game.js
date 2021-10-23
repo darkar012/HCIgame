@@ -35,7 +35,7 @@ class Game {
 
     draw(app) {
 
-        this.drawScreen();
+        this.drawScreen(app);
        
     }
 
@@ -80,7 +80,7 @@ class Game {
         }
     }
 
-    drawScreen(){
+    drawScreen(app){
         switch (this.screen) {
             case 0:
                 app.image(this.mainScreen, 0, 0);
