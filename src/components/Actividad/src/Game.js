@@ -11,9 +11,11 @@ class Game {
         this.tutorial4 = null;
         this.tutorial5 = null;
         this.tutorial6 = null;
-        this.screen = null;
 
-        this.screen = 0;
+        this.playerX = 80;
+        this.playerY = 146;
+        this.side = 1;
+        this.screen = 7;
 
     }
 
@@ -31,7 +33,10 @@ class Game {
         this.tutorial5 = app.loadImage('/game/tutorial5.png');
         this.tutorial6 = app.loadImage('/game/tutorial6.png');
         this.level1 = app.loadImage('/game/level1.png');
-
+        this.playerF = app.loadImage('/game/characterfoward.png');
+        this.playerR = app.loadImage('/game/characterright.png');
+        this.playerL = app.loadImage('/game/characterleft.png');
+        this.playerB = app.loadImage('/game/characterback.png');
     }
 
     draw(app) {
@@ -105,9 +110,50 @@ class Game {
                 app.image(this.tutorial6, 0, 0);
                 break;
             case 7:
+
                 app.image(this.level1, 0, 0);
-                break;
+                switch (this.side) {
+                    case 1:
+                        app.image(this.playerF, this.playerX, this.playerY);
+                        break;
+                    case 2:
+                        app.image(this.playerL, this.playerX, this.playerY);
+                        break;
+                    case 3:
+                        app.image(this.playerR, this.playerX, this.playerY);
+                        break;
+                    case 4:
+                        app.image(this.playerB, this.playerX, this.playerY);
+                        break;
+                }
+
+                if (this.playerX < 52 || this.playerX > 785 || this.playerY < 138 || this.playerY > 420) {
+                    this.playerX = 80;
+                    this.playerY = 146;
+                    console.log("perdiste");
+                }
+
         }
+    }
+
+    keyPressed(app) {
+        let c = app.key;
+
+        if (c == "d") {
+            this.side = 3;
+            this.playerX = this.playerX + 90;
+        } else if (c == "a") {
+            this.side = 2;
+            this.playerX = this.playerX - 90;
+        } else if (c == "w") {
+            this.side = 4;
+            this.playerY = this.playerY - 90;
+        } else if (c == "s") {
+            this.side = 1;
+            this.playerY = this.playerY + 90;
+        }
+
+
     }
 }
 
