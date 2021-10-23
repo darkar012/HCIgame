@@ -16,7 +16,6 @@ class Game {
         this.screen = 7;
         this.levelActivated = null;
         this.arrayBloques = [];
-        this.arrayVariants = [];
 
         this.block1 = null;
         this.block2 = null;
@@ -30,8 +29,6 @@ class Game {
         this.block10 = null;
         this.block11 = null;
         this.block12 = null;
-
-
     }
 
 
@@ -51,8 +48,6 @@ class Game {
 
         this.levelActivated = false;
 
-        this.blockX = 28;
-
         this.block1 = app.loadImage('/game/derecha.png');
         this.block2 = app.loadImage('/game/izquierda.png');
         this.block3 = app.loadImage('/game/arriba.png');
@@ -69,7 +64,9 @@ class Game {
 
     draw(app) {
         this.drawScreen(app);
-        this.drawBlocks(28, app);
+
+        this.drawBlocks(28,app);
+
     }
 
     mousePressed(app) {
@@ -155,27 +152,20 @@ class Game {
             if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 211 && app.mouseY < 245) {
                 console.log("DERECHA");
                 let codeRight = 1;
-                let variant = 1;
                 this.arrayBloques.push(codeRight);
-                this.arrayVariants.push(variant);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("IZQUIERDA");
                 let codeLeft = 2;
-                let variant = 1;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeLeft);
-
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 345 && app.mouseY < 379) {
                 console.log("ARRIBA");
                 let codeUp = 3;
-                let variant = 1;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeUp);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -183,80 +173,70 @@ class Game {
             if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("ABAJO");
                 let codeDown = 4;
-                let variant = 1;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeDown);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 211 && app.mouseY < 245) {
                 console.log("UNA VEZ")
+
                 let codeOne = 5;
-                let variant = 2;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeOne);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("DOS VECES");
+
                 let codeTwo = 6;
-                let variant = 2;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeTwo);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 345 && app.mouseY < 379) {
                 console.log("TRES VECES");
+
                 let codeThree = 7;
-                let variant = 2;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeThree);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 211 && app.mouseY < 245) {
                 console.log("CUATRO VECES");
+
                 let codeFour = 8;
-                let variant = 2;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeFour);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("CINCO VECES");
+
                 let codeFive = 9;
-                let variant = 2;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeFive);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 345 && app.mouseY < 379) {
                 console.log("SEIS VECES")
+
                 let codeSix = 10;
-                let variant = 2;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeSix);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 1022 && app.mouseX < 1106 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("CAPTURAR");
+
                 let codeCapture = 11;
-                let variant = 3;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeCapture);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
             if (app.mouseX > 1115 && app.mouseX < 1199 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("LIBERAR");
+
                 let codeFree = 12;
-                let variant = 3;
-                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeFree);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -334,6 +314,7 @@ class Game {
     }
 
 }
+
 
 
 export default Game;
