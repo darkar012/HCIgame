@@ -1,19 +1,21 @@
-class Screen{
+class Screen {
 
-    constructor(actividad){
-        this.actividad=actividad;
+    constructor(actividad) {
+        this.actividad = actividad;
         this.PATH = '/game/';
         this.mainScreen = null;
     }
 
-    drawScreen(app){
-        app.rect(200,200,50,50);
-        this.mainScreen= app.loadImage(this.PATH+'mainScreen.png')
-        app.image(this.mainScreen,0,0);
+    drawScreen(app, mainScreen) {
+        this.mainScreen = app.image('/game/mainScreen.png');
+        app.image(mainScreen, 0, 0);
+        app.rect(500, 200, 50, 50);
+
+
     }
 
-    button(){
-        console.log("FUNCIONA")
+    button() {
+        console.log("FUNCIONA");
     }
 }
 
