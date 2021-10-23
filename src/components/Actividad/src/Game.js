@@ -21,6 +21,9 @@ class Game {
         this.screen = 7;
         this.levelActivated = null;
         this.arrayBloques = [];
+        this.allowTimer=false;
+        this.s=0;
+        this.m=0;
 
         this.block1 = null;
         this.block2 = null;
@@ -40,6 +43,11 @@ class Game {
         this.title = "Pokemón";
         app.createCanvas(1280, 720);
         app.background(0);
+
+        this.font = app.loadFont("/game/pixelmix.ttf");
+        app.textFont(this.font, 128)
+        app.textSize(20);
+
         this.mainScreen = app.loadImage("/game/mainScreen.png");
         this.tutorial1 = app.loadImage("/game/tutorial1.png");
         this.tutorial2 = app.loadImage("/game/tutorial2.png");
@@ -87,6 +95,7 @@ class Game {
         this.drawScreen(app);
 
         this.drawBlocks(28, app);
+        this.timer(app);
 
     }
 
@@ -165,6 +174,7 @@ class Game {
                 break;
             case 7:
                 this.levelActivated = true;
+                this.allowTimer = true;
                 this.blocks(app);
                 break;
         }
@@ -457,6 +467,26 @@ class Game {
                 }
             }
         }
+    }
+
+    timer(app){
+
+        if (this.allowTimer) {
+
+
+			if (app.frameCount % 60 == 0) {
+				this.s += 1;
+			}
+			if (this.s == 60) {
+				this.s = 0;
+				this.m += 1;
+			}
+
+            let t = app.nf(this.m,2)+":"+app.nf(this.s,2);
+            console.log(t);
+            app.text(t, 900, 81);
+		}
+
     }
 
 }
