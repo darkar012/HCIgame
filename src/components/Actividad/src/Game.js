@@ -21,6 +21,19 @@ class Game {
         this.screen = 7;
         this.levelActivated = null;
         this.arrayBloques = [];
+
+        this.block1 = null;
+        this.block2 = null;
+        this.block3 = null;
+        this.block4 = null;
+        this.block5 = null;
+        this.block6 = null;
+        this.block7 = null;
+        this.block8 = null;
+        this.block9 = null;
+        this.block10 = null;
+        this.block11 = null;
+        this.block12 = null;
     }
 
     setup(app) {
@@ -55,10 +68,26 @@ class Game {
         this.levelActivated = false;
         this.capture = false;
         this.capturado = false;
+
+        this.block1 = app.loadImage('/game/derecha.png');
+        this.block2 = app.loadImage('/game/izquierda.png');
+        this.block3 = app.loadImage('/game/arriba.png');
+        this.block4 = app.loadImage('/game/abajo.png');
+        this.block5 = app.loadImage('/game/1vez.png');
+        this.block6 = app.loadImage('/game/2veces.png');
+        this.block7 = app.loadImage('/game/3veces.png');
+        this.block8 = app.loadImage('/game/4veces.png');
+        this.block9 = app.loadImage('/game/5veces.png');
+        this.block10 = app.loadImage('/game/6veces.png');
+        this.block11 = app.loadImage('/game/capturar.png');
+        this.block12 = app.loadImage('/game/liberar.png');
     }
 
     draw(app) {
         this.drawScreen(app);
+
+        this.drawBlocks(28, app);
+
     }
 
     mousePressed(app) {
@@ -213,6 +242,7 @@ class Game {
         }
     }
 
+
     keyPressed(app) {
         let c = app.key;
 
@@ -248,6 +278,7 @@ class Game {
         }
     }
 
+
     blocks(app) {
         if (this.levelActivated) {
             if (
@@ -262,133 +293,86 @@ class Game {
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 852 &&
-                app.mouseX < 1006 &&
-                app.mouseY > 278 &&
-                app.mouseY < 312
-            ) {
+            if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("IZQUIERDA");
                 let codeLeft = 2;
                 this.arrayBloques.push(codeLeft);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 852 &&
-                app.mouseX < 1006 &&
-                app.mouseY > 345 &&
-                app.mouseY < 379
-            ) {
+            if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 345 && app.mouseY < 379) {
                 console.log("ARRIBA");
                 let codeUp = 3;
                 this.arrayBloques.push(codeUp);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 852 &&
-                app.mouseX < 1006 &&
-                app.mouseY > 412 &&
-                app.mouseY < 446
-            ) {
+            if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("ABAJO");
                 let codeDown = 4;
                 this.arrayBloques.push(codeDown);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 1025 &&
-                app.mouseX < 1104 &&
-                app.mouseY > 211 &&
-                app.mouseY < 245
-            ) {
-                console.log("UNA VEZ");
+            if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 211 && app.mouseY < 245) {
+                console.log("UNA VEZ")
+
                 let codeOne = 5;
                 this.arrayBloques.push(codeOne);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 1025 &&
-                app.mouseX < 1104 &&
-                app.mouseY > 278 &&
-                app.mouseY < 312
-            ) {
+            if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("DOS VECES");
+
                 let codeTwo = 6;
                 this.arrayBloques.push(codeTwo);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 1025 &&
-                app.mouseX < 1104 &&
-                app.mouseY > 345 &&
-                app.mouseY < 379
-            ) {
+            if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 345 && app.mouseY < 379) {
                 console.log("TRES VECES");
+
                 let codeThree = 7;
                 this.arrayBloques.push(codeThree);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 1121 &&
-                app.mouseX < 1200 &&
-                app.mouseY > 211 &&
-                app.mouseY < 245
-            ) {
+            if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 211 && app.mouseY < 245) {
                 console.log("CUATRO VECES");
+
                 let codeFour = 8;
                 this.arrayBloques.push(codeFour);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 1121 &&
-                app.mouseX < 1200 &&
-                app.mouseY > 278 &&
-                app.mouseY < 312
-            ) {
+            if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("CINCO VECES");
+
                 let codeFive = 9;
                 this.arrayBloques.push(codeFive);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 1121 &&
-                app.mouseX < 1200 &&
-                app.mouseY > 345 &&
-                app.mouseY < 379
-            ) {
-                console.log("SEIS VECES");
+            if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 345 && app.mouseY < 379) {
+                console.log("SEIS VECES")
+
                 let codeSix = 10;
                 this.arrayBloques.push(codeSix);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 1022 &&
-                app.mouseX < 1106 &&
-                app.mouseY > 412 &&
-                app.mouseY < 446
-            ) {
+            if (app.mouseX > 1022 && app.mouseX < 1106 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("CAPTURAR");
+
                 let codeCapture = 11;
                 this.arrayBloques.push(codeCapture);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
 
-            if (
-                app.mouseX > 1115 &&
-                app.mouseX < 1199 &&
-                app.mouseY > 412 &&
-                app.mouseY < 446
-            ) {
+            if (app.mouseX > 1115 && app.mouseX < 1199 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("LIBERAR");
+
                 let codeFree = 12;
                 this.arrayBloques.push(codeFree);
                 console.log("arrayBloques= " + this.arrayBloques);
@@ -416,7 +400,67 @@ class Game {
                 console.log("arrayBloques= " + this.arrayBloques);
             }
         }
+
     }
+
+    drawBlocks(posx, app) {
+
+        if (this.levelActivated) {
+            for (let index = 0; index < this.arrayBloques.length; index++) {
+
+                if (this.arrayBloques[index] == 1) {
+                    app.image(this.block1, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 2) {
+                    app.image(this.block2, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 3) {
+                    app.image(this.block3, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 4) {
+                    app.image(this.block4, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 5) {
+                    app.image(this.block5, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 6) {
+                    app.image(this.block6, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 7) {
+                    app.image(this.block7, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 8) {
+                    app.image(this.block8, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 9) {
+                    app.image(this.block9, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 10) {
+                    app.image(this.block10, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 11) {
+                    app.image(this.block11, posx + (176 * index), 570);
+                }
+
+                if (this.arrayBloques[index] == 12) {
+                    app.image(this.block12, posx + (176 * index), 570);
+                }
+            }
+        }
+    }
+
 }
+
+
 
 export default Game;
