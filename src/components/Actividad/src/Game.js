@@ -10,6 +10,8 @@ class Game {
         this.tutorial5 = null;
         this.tutorial6 = null;
 
+        this.valid = false;
+
         this.playerX = 80;
         this.playerY = 146;
         this.side = 1;
@@ -21,9 +23,9 @@ class Game {
         this.screen = 7;
         this.levelActivated = null;
         this.arrayBloques = [];
-        this.allowTimer=false;
-        this.s=0;
-        this.m=0;
+        this.allowTimer = false;
+        this.s = 0;
+        this.m = 0;
 
         this.block1 = null;
         this.block2 = null;
@@ -93,9 +95,11 @@ class Game {
 
     draw(app) {
         this.drawScreen(app);
+        app.frameRate(60);
 
         this.drawBlocks(28, app);
         this.timer(app);
+
 
     }
 
@@ -204,6 +208,7 @@ class Game {
                 app.image(this.tutorial6, 0, 0);
                 break;
             case 7:
+
                 app.image(this.level1, 0, 0);
                 if (this.life == 3) {
                     app.image(this.life3, 1080, 56);
@@ -237,56 +242,262 @@ class Game {
                         app.image(this.playerB, this.playerX, this.playerY);
                         break;
                 }
+                this.drawBlocks(28, app);
+                if (this.valid) {
+                    this.validation(app);
 
-                if (
-                    this.playerX < 52 ||
-                    this.playerX > 785 ||
-                    this.playerY < 138 ||
-                    this.playerY > 420
-                ) {
-                    this.playerX = 80;
-                    this.playerY = 146;
-                    this.capturado = false;
-                    console.log("perdiste");
                 }
+
         }
     }
 
 
-    keyPressed(app) {
-        let c = app.key;
+    reset() {
+        this.playerX = 80;
+        this.playerY = 146;
+        this.capturado = false;
+        console.log("perdiste");
+    }
 
-        if (c == "d") {
-            this.side = 3;
-            this.playerX = this.playerX + 90;
-        } else if (c == "a") {
-            this.side = 2;
-            this.playerX = this.playerX - 90;
-        } else if (c == "w") {
-            this.side = 4;
-            this.playerY = this.playerY - 90;
-        } else if (c == "s") {
-            this.side = 1;
-            this.playerY = this.playerY + 90;
-        } else if (c == " ") {
-            if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
-                console.log("capturado Pikachu");
-                this.capturado = true;
-            } else {
-                console.log("pokémon equivocado");
-                this.capture = false;
+    validation(app) {
+            if (app.frameCount % 30 == 0) {
+                for (let i = 0; i < this.arrayBloques.length; i++) {
+                    if (this.arrayBloques[i] == 1) {
+                        this.side = 3;
+                        if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+                            this.reset();
+                            this.life = this.life - 1;
+                            console.log("recuerda indicar la cantidad de veces");
+                        } else {
+
+                            switch (this.arrayBloques[i + 1]) {
+                                case 5:
+                                    this.playerX = this.playerX + 90;
+
+                                    break;
+                                case 6:
+                                    this.playerX = this.playerX + (90 * 2);
+
+                                    break;
+                                case 7:
+                                    this.playerX = this.playerX + (90 * 3);
+
+                                    break;
+                                case 8:
+                                    this.playerX = this.playerX + (90 * 4);
+
+                                    break;
+                                case 9:
+                                    this.playerX = this.playerX + (90 * 5);
+
+                                    break;
+                                case 10:
+                                    this.playerX = this.playerX + (90 * 6);
+
+                                    break;
+                            }
+
+                        }
+                        if (
+                            this.playerX < 52 ||
+                            this.playerX > 785 ||
+                            this.playerY < 138 ||
+                            this.playerY > 420
+                        ) {
+                            this.reset();
+                            this.life = this.life - 1;
+                        }
+                    }
+                    if (this.arrayBloques[i] == 2) {
+                        this.side = 2;
+                        if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+                            this.reset();
+                            this.life = this.life - 1;
+                            console.log("recuerda indicar la cantidad de veces");
+                        } else {
+
+                            switch (this.arrayBloques[i + 1]) {
+                                case 5:
+                                    this.playerX = this.playerX - 90;
+                                    break;
+                                case 6:
+                                    this.playerX = this.playerX - (90 * 2);
+                                    break;
+                                case 7:
+                                    this.playerX = this.playerX - (90 * 3);
+                                    break;
+                                case 8:
+                                    this.playerX = this.playerX - (90 * 4);
+                                    break;
+                                case 9:
+                                    this.playerX = this.playerX - (90 * 5);
+                                    break;
+                                case 10:
+                                    this.playerX = this.playerX - (90 * 6);
+                                    break;
+                            }
+
+                        }
+                        if (
+                            this.playerX < 52 ||
+                            this.playerX > 785 ||
+                            this.playerY < 138 ||
+                            this.playerY > 420
+                        ) {
+                            this.reset();
+                            this.life = this.life - 1;
+                        }
+                    }
+                    if (this.arrayBloques[i] == 3) {
+                        this.side = 4;
+
+                        if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+                            this.reset();
+                            this.life = this.life - 1;
+                            console.log("recuerda indicar la cantidad de veces");
+                        } else {
+
+                            switch (this.arrayBloques[i + 1]) {
+                                case 5:
+                                    this.playerY = this.playerY - 90;
+                                    break;
+                                case 6:
+                                    this.playerY = this.playerY - (90 * 2);
+                                    break;
+                                case 7:
+                                    this.playerY = this.playerY - (90 * 3);
+                                    break;
+                                case 8:
+                                    this.playerY = this.playerY - (90 * 4);
+                                    break;
+                                case 9:
+                                    this.playerY = this.playerY - (90 * 5);
+                                    break;
+                                case 10:
+                                    this.playerY = this.playerY - (90 * 6);
+                                    break;
+                            }
+
+                        }
+                        if (
+                            this.playerX < 52 ||
+                            this.playerX > 785 ||
+                            this.playerY < 138 ||
+                            this.playerY > 420
+                        ) {
+                            this.reset();
+                            this.life = this.life - 1;
+                        }
+                    }
+                    if (this.arrayBloques[i] == 4) {
+                        this.side = 1;
+                        if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+                            this.reset();
+                            this.life = this.life - 1;
+                            console.log("recuerda indicar la cantidad de veces");
+                        } else {
+
+                            switch (this.arrayBloques[i + 1]) {
+                                case 5:
+                                    this.playerY = this.playerY + 90;
+                                    break;
+                                case 6:
+                                    this.playerY = this.playerY + (90 * 2);
+                                    break;
+                                case 7:
+                                    this.playerY = this.playerY + (90 * 3);
+                                    break;
+                                case 8:
+                                    this.playerY = this.playerY + (90 * 4);
+                                    break;
+                                case 9:
+                                    this.playerY = this.playerY + (90 * 5);
+                                    break;
+                                case 10:
+                                    this.playerY = this.playerY + (90 * 6);
+                                    break;
+                            }
+
+                        }
+                        if (
+                            this.playerX < 52 ||
+                            this.playerX > 785 ||
+                            this.playerY < 138 ||
+                            this.playerY > 420
+                        ) {
+                            this.reset();
+                            this.life = this.life - 1;
+                        }
+                    }
+                    if (this.arrayBloques[i] == 11) {
+
+                        if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
+                            console.log("capturado Pikachu");
+                            this.capturado = true;
+                        } else {
+                            console.log("pokémon equivocado");
+                            this.capture = false;
+                            this.reset();
+                            this.life = this.life - 1;
+                        }
+
+                    }
+                    if (this.arrayBloques[i] == 12) {
+
+                        if (this.capturado) {
+                            if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
+                                console.log("Pikachu Liberado");
+                                this.capturado = false;
+                            } else {
+                                console.log("lugar equivocado");
+                                this.reset();
+                                this.life = this.life - 1;
+                            }
+                        }
+
+                    }
+
+                }
             }
-        } else if (c == "Control") {
-            if (this.capturado) {
-                if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
-                    console.log("Pikachu Liberado");
-                    this.capturado = false;
+        }
+        /*keyPressed(app) {
+            let c = app.key;
+
+            if (c == "d") {
+                this.side = 3;
+                this.playerX = this.playerX + 90;
+            } else if (c == "a") {
+                this.side = 2;
+                this.playerX = this.playerX - 90;
+            } else if (c == "w") {
+                this.side = 4;
+                this.playerY = this.playerY - 90;
+            } else if (c == "s") {
+                this.side = 1;
+                this.playerY = this.playerY + 90;
+            } else if (c == " ") {
+                if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
+                    console.log("capturado Pikachu");
+                    this.capturado = true;
                 } else {
-                    console.log("lugar equivocado");
+                    console.log("pokémon equivocado");
+                    this.capture = false;
+                    this.reset();
+                    this.life = this.life - 1;
+                }
+            } else if (c == "Control") {
+                if (this.capturado) {
+                    if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
+                        console.log("Pikachu Liberado");
+                        this.capturado = false;
+                    } else {
+                        console.log("lugar equivocado");
+                        this.reset();
+                        this.life = this.life - 1;
+                    }
                 }
             }
-        }
-    }
+        }*/
 
 
     blocks(app) {
@@ -409,6 +620,14 @@ class Game {
                 this.arrayBloques.pop();
                 console.log("arrayBloques= " + this.arrayBloques);
             }
+            if (
+                app.mouseX > 1069 &&
+                app.mouseX < 1223 &&
+                app.mouseY > 655 &&
+                app.mouseY < 704
+            ) {
+                this.valid = true;
+            }
         }
 
     }
@@ -419,73 +638,73 @@ class Game {
             for (let index = 0; index < this.arrayBloques.length; index++) {
 
                 if (this.arrayBloques[index] == 1) {
-                    app.image(this.block1, posx + (176 * index), 570);
+                    app.image(this.block1, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 2) {
-                    app.image(this.block2, posx + (176 * index), 570);
+                    app.image(this.block2, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 3) {
-                    app.image(this.block3, posx + (176 * index), 570);
+                    app.image(this.block3, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 4) {
-                    app.image(this.block4, posx + (176 * index), 570);
+                    app.image(this.block4, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 5) {
-                    app.image(this.block5, posx + (176 * index), 570);
+                    app.image(this.block5, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 6) {
-                    app.image(this.block6, posx + (176 * index), 570);
+                    app.image(this.block6, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 7) {
-                    app.image(this.block7, posx + (176 * index), 570);
+                    app.image(this.block7, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 8) {
-                    app.image(this.block8, posx + (176 * index), 570);
+                    app.image(this.block8, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 9) {
-                    app.image(this.block9, posx + (176 * index), 570);
+                    app.image(this.block9, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 10) {
-                    app.image(this.block10, posx + (176 * index), 570);
+                    app.image(this.block10, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 11) {
-                    app.image(this.block11, posx + (176 * index), 570);
+                    app.image(this.block11, posx + (140 * index), 570);
                 }
 
                 if (this.arrayBloques[index] == 12) {
-                    app.image(this.block12, posx + (176 * index), 570);
+                    app.image(this.block12, posx + (140 * index), 570);
                 }
             }
         }
     }
 
-    timer(app){
+    timer(app) {
 
         if (this.allowTimer) {
 
 
-			if (app.frameCount % 60 == 0) {
-				this.s += 1;
-			}
-			if (this.s == 60) {
-				this.s = 0;
-				this.m += 1;
-			}
+            if (app.frameCount % 60 == 0) {
+                this.s += 1;
+            }
+            if (this.s == 60) {
+                this.s = 0;
+                this.m += 1;
+            }
 
-            let t = app.nf(this.m,2)+":"+app.nf(this.s,2);
+            let t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
             console.log(t);
             app.text(t, 900, 81);
-		}
+        }
 
     }
 
