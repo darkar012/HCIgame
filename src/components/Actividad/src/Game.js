@@ -1,6 +1,5 @@
 class Game {
 
-
     constructor(actividad) {
         this.actividad = actividad;
         this.mainScreen = null;
@@ -12,9 +11,10 @@ class Game {
         this.tutorial5 = null;
         this.tutorial6 = null;
         this.screen = null;
+        this.level1 = null;
 
-        this.screen = 0;
-
+        this.screen = 7;
+        this.levelActivated = null;
     }
 
 
@@ -31,6 +31,8 @@ class Game {
         this.tutorial5 = app.loadImage('/game/tutorial5.png');
         this.tutorial6 = app.loadImage('/game/tutorial6.png');
         this.level1 = app.loadImage('/game/level1.png');
+
+        this.levelActivated = false;
 
     }
 
@@ -76,6 +78,10 @@ class Game {
                 }
 
                 break;
+            case 7:
+                this.levelActivated=true;
+                this.blocks(app);
+                break;
         }
     }
 
@@ -108,6 +114,62 @@ class Game {
                 app.image(this.level1, 0, 0);
                 break;
         }
+    }
+
+    blocks(app){
+
+        if(this.levelActivated){
+
+            if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 211 && app.mouseY < 245) {
+                console.log("DERECHA")
+            }
+    
+            if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 278 && app.mouseY < 312) {
+                console.log("IZQUIERDA")
+            }
+    
+            if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 345 && app.mouseY < 379) {
+                console.log("ARRIBA")
+            }
+    
+            if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 412 && app.mouseY < 446) {
+                console.log("ABAJO")
+            }
+    
+            if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 211 && app.mouseY < 245) {
+                console.log("UNA VEZ")
+            }
+    
+            if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 278 && app.mouseY < 312) {
+                console.log("DOS VECES")
+            }
+    
+            if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 345 && app.mouseY < 379) {
+                console.log("TRES VECES")
+            }
+    
+            if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 211 && app.mouseY < 245) {
+                console.log("CUATRO VECES")
+            }
+    
+            if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 278 && app.mouseY < 312) {
+                console.log("CINCO VECES")
+            }
+            
+            if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 345 && app.mouseY < 379) {
+                console.log("SEIS VECES")
+            }
+    
+            if (app.mouseX > 1022 && app.mouseX < 1106 && app.mouseY > 412 && app.mouseY < 446) {
+                console.log("CAPTURAR")
+            }
+    
+            if (app.mouseX > 1115 && app.mouseX < 1199 && app.mouseY > 412 && app.mouseY < 446) {
+                console.log("LIBERAR")
+            }
+
+        }
+        
     }
 }
 
