@@ -16,6 +16,7 @@ class Game {
         this.screen = 7;
         this.levelActivated = null;
         this.arrayBloques = [];
+        this.arrayVariants = [];
       
         this.block1=null;
         this.block2=null;
@@ -29,6 +30,8 @@ class Game {
         this.block10=null;
         this.block11=null;
         this.block12=null;
+
+
     }
 
 
@@ -152,20 +155,27 @@ class Game {
             if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 211 && app.mouseY < 245) {
                 console.log("DERECHA");
                 let codeRight=1;
+                let variant =1;
                 this.arrayBloques.push(codeRight);
+                this.arrayVariants.push(variant);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
     
             if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("IZQUIERDA");
                 let codeLeft=2;
+                let variant =1;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeLeft);
+                
                 console.log("arrayBloques= " + this.arrayBloques);
             }
     
             if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 345 && app.mouseY < 379) {
                 console.log("ARRIBA");
                 let codeUp=3;
+                let variant =1;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeUp);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -173,6 +183,8 @@ class Game {
             if (app.mouseX > 852 && app.mouseX < 1006 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("ABAJO");
                 let codeDown=4;
+                let variant =1;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeDown);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -180,6 +192,8 @@ class Game {
             if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 211 && app.mouseY < 245) {
                 console.log("UNA VEZ")
                 let codeOne=5;
+                let variant =2;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeOne);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -187,6 +201,8 @@ class Game {
             if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("DOS VECES");
                 let codeTwo=6;
+                let variant =2;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeTwo);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -194,6 +210,8 @@ class Game {
             if (app.mouseX > 1025 && app.mouseX < 1104 && app.mouseY > 345 && app.mouseY < 379) {
                 console.log("TRES VECES");
                 let codeThree=7;
+                let variant =2;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeThree);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -201,6 +219,8 @@ class Game {
             if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 211 && app.mouseY < 245) {
                 console.log("CUATRO VECES");
                 let codeFour=8;
+                let variant =2;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeFour);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -208,6 +228,8 @@ class Game {
             if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 278 && app.mouseY < 312) {
                 console.log("CINCO VECES");
                 let codeFive=9;
+                let variant =2;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeFive);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -215,6 +237,8 @@ class Game {
             if (app.mouseX > 1121 && app.mouseX < 1200 && app.mouseY > 345 && app.mouseY < 379) {
                 console.log("SEIS VECES")
                 let codeSix=10;
+                let variant =2;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeSix);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -222,6 +246,8 @@ class Game {
             if (app.mouseX > 1022 && app.mouseX < 1106 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("CAPTURAR");
                 let codeCapture=11;
+                let variant =3;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeCapture);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -229,6 +255,8 @@ class Game {
             if (app.mouseX > 1115 && app.mouseX < 1199 && app.mouseY > 412 && app.mouseY < 446) {
                 console.log("LIBERAR");
                 let codeFree=12;
+                let variant =3;
+                this.arrayVariants.push(variant);
                 this.arrayBloques.push(codeFree);
                 console.log("arrayBloques= " + this.arrayBloques);
             }
@@ -253,8 +281,9 @@ class Game {
 
         if (this.levelActivated) {
             for (let index = 0; index < this.arrayBloques.length; index++) {
-            
+            if(index == 0){
                 if(this.arrayBloques[index] == 1){
+                    
                     app.image(this.block1, posx+(176*index), 570);
                 }
     
@@ -301,11 +330,79 @@ class Game {
                 if(this.arrayBloques[index] == 12){
                     app.image(this.block12, posx+(176*index), 570);
                 }
+            } else {
+               
+                if(this.arrayBloques[index] == 1){
+                    if(this.arrayVariants[this.arrayVariants.length-1] == 1){
+                    app.image(this.block1, posx+(176*index), 570);
+                } else if (this.arrayVariants[this.arrayVariants.length-1] == 2){
+                    app.image(this.block1, posx+(90*index), 570);
+                } else {
+                    app.image(this.block1, posx+(70*index), 570);
+                }
+            }
+    
+                if(this.arrayBloques[index] == 2){
+                   
+                    }
+                }
+    
+                if(this.arrayBloques[index] == 3){
+                    
+                }
+    
+                if(this.arrayBloques[index] == 4){
+                    
+                }
+    
+                if(this.arrayBloques[index] == 5){
+                    if(this.arrayVariants[this.arrayVariants.length-1] == 1){
+                        app.image(this.block5, posx+(176*index), 570);
+                    } else if (this.arrayVariants[this.arrayVariants.length-1] == 2){
+                        app.image(this.block5, posx+(190*index), 570);
+                    } else {
+                        app.image(this.block5, posx+(70*index), 570);
+                    }
+                }
+    
+                if(this.arrayBloques[index] == 6){
+                    
+                }
                 
+                if(this.arrayBloques[index] == 7){
+                    
+                }
+    
+                if(this.arrayBloques[index] == 8){
+                    
+                }
+    
+                if(this.arrayBloques[index] == 9){
+                   
+                }
+    
+                if(this.arrayBloques[index] == 10){
+                    
+                }
+    
+                if(this.arrayBloques[index] == 11){
+                    if(this.arrayVariants[this.arrayVariants.length-1] == 1){
+                        app.image(this.block11, posx+(176*index), 570);
+                    } else if (this.arrayVariants[this.arrayVariants.length-1] == 2){
+                        app.image(this.block11, posx+(90*index), 570);
+                    } else {
+                        app.image(this.block11, posx+(70*index), 570);
+                    }
+                }
+    
+                if(this.arrayBloques[index] == 12){
+                    
+                }
+            }
             }
         }
         
     }
-}
+
 
 export default Game;
