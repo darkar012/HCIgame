@@ -1,7 +1,7 @@
 class Screen{
 
-    constructor(app){
-        this.app=app;
+    constructor(actividad){
+        this.actividad=actividad;
         this.PATH = '/game/';
         this.mainScreen = app.loadImage(this.PATH+'mainScreen.png');
     }
@@ -14,3 +14,5 @@ class Screen{
 
     }
 }
+
+export default Screen;
