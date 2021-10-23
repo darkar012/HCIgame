@@ -5,13 +5,13 @@ class Game {
         this.actividad = actividad;
         this.mainScreen = null;
 
-        this.tutorial1=null;
-        this.tutorial2=null;
-        this.tutorial3=null;
-        this.tutorial4=null;
-        this.tutorial5=null;
-        this.tutorial6=null;
-        this.screen=null;
+        this.tutorial1 = null;
+        this.tutorial2 = null;
+        this.tutorial3 = null;
+        this.tutorial4 = null;
+        this.tutorial5 = null;
+        this.tutorial6 = null;
+        this.screen = null;
 
         this.screen = 0;
 
@@ -30,13 +30,12 @@ class Game {
         this.tutorial4 = app.loadImage('/game/tutorial4.png');
         this.tutorial5 = app.loadImage('/game/tutorial5.png');
         this.tutorial6 = app.loadImage('/game/tutorial6.png');
+        this.level1 = app.loadImage('/game/level1.png');
 
     }
 
     draw(app) {
-
         this.drawScreen(app);
-       
     }
 
     mousePressed(app) {
@@ -80,7 +79,9 @@ class Game {
         }
     }
 
-    drawScreen(app){
+
+    drawScreen(app) {
+
         switch (this.screen) {
             case 0:
                 app.image(this.mainScreen, 0, 0);
@@ -102,8 +103,12 @@ class Game {
                 break;
             case 6:
                 app.image(this.tutorial6, 0, 0);
+                break;
+            case 7:
+                app.image(this.level1, 0, 0);
+                break;
+        }
     }
-}
 }
 
 export default Game;
