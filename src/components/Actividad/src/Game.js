@@ -35,8 +35,11 @@ class Game {
         this.levelActivated = null;
         this.arrayBloques = [];
         this.allowTimer = false;
-        this.s = 50;
-        this.m = 4;
+        this.s = 0;
+        this.m = 0;
+        this.t = 0;
+        this.tiempoFinal1 = 0;
+        this.tiempoFinal2 = 0;
 
         this.block1 = null;
         this.block2 = null;
@@ -280,7 +283,7 @@ class Game {
 
                 app.text(this.message, 50, 650);
 
-                this.drawBlocks(28, app);
+                this.drawBlocks(10, app);
         }
     }
 
@@ -468,6 +471,9 @@ class Game {
                     return;
                 } else {
                     this.winLose = 1;
+                    this.allowTimer = false;
+                    this.tiempoFinal1 = this.m * 60 + this.s;
+                    console.log("Tiempo Final= " + this.tiempoFinal1);
                 }
             }
         }
@@ -691,9 +697,9 @@ class Game {
     }
 
     timer(app) {
-        if (this.allowTimer) {
 
-            let t;
+
+        if (this.allowTimer) {
 
             if (this.m < 5) {
                 if (app.frameCount % 60 == 0) {
@@ -704,16 +710,17 @@ class Game {
                     this.m += 1;
                 }
 
-                t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
+                this.t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
 
-                app.text(t, 900, 81);
+                app.text(this.t, 900, 81);
             } else {
-                this.m = 5;
-                this.s = 0;
-                t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
-                app.text(t, 900, 81);
+                this.t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
+                app.text(this.t, 900, 81);
             }
 
+        } else {
+            this.t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
+            app.text(this.t, 900, 81);
         }
     }
     sleep(milliseconds) {
