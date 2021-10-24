@@ -1,7 +1,11 @@
+import App from "../../App/App";
+
 class Game {
     constructor(actividad) {
         this.actividad = actividad;
         this.mainScreen = null;
+
+        this.message = "";
 
         this.tutorial1 = null;
         this.tutorial2 = null;
@@ -20,7 +24,7 @@ class Game {
         this.screen = null;
         this.level1 = null;
 
-        this.screen = 0;
+        this.screen = 8;
         this.levelActivated = null;
         this.arrayBloques = [];
         this.allowTimer = false;
@@ -77,7 +81,7 @@ class Game {
         this.life = 3;
 
         this.levelActivated = false;
-        this.capture = false;
+
         this.capturado = false;
 
         this.block1 = app.loadImage("/game/derecha.png");
@@ -252,6 +256,9 @@ class Game {
                         app.image(this.playerB, this.playerX, this.playerY);
                         break;
                 }
+
+                app.text(this.message, 50, 650);
+
                 this.drawBlocks(28, app);
         }
     }
@@ -260,243 +267,195 @@ class Game {
         this.playerX = 80;
         this.playerY = 146;
         this.capturado = false;
+
+
         console.log("perdiste");
     }
 
     validation(app) {
+        let capture = true;
+        let liberado = true;
 
-            for (let i = 0; i < this.arrayBloques.length; i++) {
-                if (this.arrayBloques[i] == 1) {
-                    this.side = 3;
+        for (let i = 0; i < this.arrayBloques.length; i++) {
+            if (this.arrayBloques[i] == 1) {
+                this.side = 3;
+                switch (this.arrayBloques[i + 1]) {
+                    case 5:
+                        this.playerX = this.playerX + 90;
+                        break;
+                    case 6:
+                        this.playerX = this.playerX + 90 * 2;
+                        break;
+                    case 7:
+                        this.playerX = this.playerX + 90 * 3;
+                        break;
+                    case 8:
+                        this.playerX = this.playerX + 90 * 4;
+                        break;
+                    case 9:
+                        this.playerX = this.playerX + 90 * 5;
+                        break;
+                    case 10:
+                        this.playerX = this.playerX + 90 * 6;
+                        break;
+                }
+
+            }
+            if (this.arrayBloques[i] == 2) {
+                this.side = 2;
+                if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+
+                    console.log("recuerda indicar la cantidad de veces");
+                } else {
                     switch (this.arrayBloques[i + 1]) {
                         case 5:
-                            this.playerX = this.playerX + 90;
-
+                            this.playerX = this.playerX - 90;
                             break;
                         case 6:
-                            this.playerX = this.playerX + 90 * 2;
-
-
-
+                            this.playerX = this.playerX - 90 * 2;
                             break;
                         case 7:
-                            this.playerX = this.playerX + 90 * 3;
-
+                            this.playerX = this.playerX - 90 * 3;
                             break;
                         case 8:
-                            this.playerX = this.playerX + 90 * 4;
-
+                            this.playerX = this.playerX - 90 * 4;
                             break;
                         case 9:
-                            this.playerX = this.playerX + 90 * 5;
-
+                            this.playerX = this.playerX - 90 * 5;
                             break;
                         case 10:
-                            this.playerX = this.playerX + 90 * 6;
-
+                            this.playerX = this.playerX - 90 * 6;
                             break;
                     }
 
+                }
 
-                    if (
-                        this.playerX < 52 ||
-                        this.playerX > 785 ||
-                        this.playerY < 138 ||
-                        this.playerY > 450
-                    ) {
-                        this.reset();
-                        this.life = this.life - 1;
+            }
+            if (this.arrayBloques[i] == 3) {
+                this.side = 4;
+
+                if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+
+                    console.log("recuerda indicar la cantidad de veces");
+                } else {
+                    switch (this.arrayBloques[i + 1]) {
+                        case 5:
+                            this.playerY = this.playerY - 90;
+                            break;
+                        case 6:
+                            this.playerY = this.playerY - 90 * 2;
+                            break;
+                        case 7:
+                            this.playerY = this.playerY - 90 * 3;
+                            break;
+                        case 8:
+                            this.playerY = this.playerY - 90 * 4;
+                            break;
+                        case 9:
+                            this.playerY = this.playerY - 90 * 5;
+                            break;
+                        case 10:
+                            this.playerY = this.playerY - 90 * 6;
+                            break;
                     }
 
                 }
-                if (this.arrayBloques[i] == 2) {
-                    this.side = 2;
-                    if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
-                        this.reset();
-                        this.life = this.life - 1;
-                        console.log("recuerda indicar la cantidad de veces");
+
+            }
+            if (this.arrayBloques[i] == 4) {
+                this.side = 1;
+                if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+
+                    console.log("recuerda indicar la cantidad de veces");
+                } else {
+                    switch (this.arrayBloques[i + 1]) {
+                        case 5:
+                            this.playerY = this.playerY + 90;
+                            break;
+                        case 6:
+                            this.playerY = this.playerY + 90 * 2;
+                            break;
+                        case 7:
+                            this.playerY = this.playerY + 90 * 3;
+                            break;
+                        case 8:
+                            this.playerY = this.playerY + 90 * 4;
+                            break;
+                        case 9:
+                            this.playerY = this.playerY + 90 * 5;
+                            break;
+                        case 10:
+                            this.playerY = this.playerY + 90 * 6;
+                            break;
+                    }
+
+                }
+
+            }
+            if (this.arrayBloques[i] == 11) {
+                if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
+                    console.log("capturado Pikachu");
+                    this.capturado = true;
+                    capture = true;
+                } else {
+                    this.capturado = false;
+                    this.message = "No capturaste al pokemon correcto";
+                    capture = false;
+                }
+            }
+            if (this.arrayBloques[i] == 12) {
+                if (this.capturado) {
+                    if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
+                        console.log("Pikachu Liberado");
+                        this.capturado = false;
+                        liberado = true;
                     } else {
-                        switch (this.arrayBloques[i + 1]) {
-                            case 5:
-                                this.playerX = this.playerX - 90;
-                                break;
-                            case 6:
-                                this.playerX = this.playerX - 90 * 2;
-                                break;
-                            case 7:
-                                this.playerX = this.playerX - 90 * 3;
-                                break;
-                            case 8:
-                                this.playerX = this.playerX - 90 * 4;
-                                break;
-                            case 9:
-                                this.playerX = this.playerX - 90 * 5;
-                                break;
-                            case 10:
-                                this.playerX = this.playerX - 90 * 6;
-                                break;
-                        }
+                        this.message = "No liberaste al pokemon en el lugar correcto";
 
-                    }
-                    if (
-                        this.playerX < 52 ||
-                        this.playerX > 785 ||
-                        this.playerY < 138 ||
-                        this.playerY > 420
-                    ) {
-                        this.reset();
-                        this.life = this.life - 1;
+
+                        liberado = false;
                     }
                 }
-                if (this.arrayBloques[i] == 3) {
-                    this.side = 4;
 
-                    if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
-                        this.reset();
-                        this.life = this.life - 1;
-                        console.log("recuerda indicar la cantidad de veces");
-                    } else {
-                        switch (this.arrayBloques[i + 1]) {
-                            case 5:
-                                this.playerY = this.playerY - 90;
-                                break;
-                            case 6:
-                                this.playerY = this.playerY - 90 * 2;
-                                break;
-                            case 7:
-                                this.playerY = this.playerY - 90 * 3;
-                                break;
-                            case 8:
-                                this.playerY = this.playerY - 90 * 4;
-                                break;
-                            case 9:
-                                this.playerY = this.playerY - 90 * 5;
-                                break;
-                            case 10:
-                                this.playerY = this.playerY - 90 * 6;
-                                break;
-                        }
-
-                    }
-                    if (
-                        this.playerX < 52 ||
-                        this.playerX > 785 ||
-                        this.playerY < 138 ||
-                        this.playerY > 420
-                    ) {
-                        this.reset();
-                        this.life = this.life - 1;
-                    }
-                }
-                if (this.arrayBloques[i] == 4) {
-                    this.side = 1;
-                    if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
-                        this.reset();
-                        this.life = this.life - 1;
-                        console.log("recuerda indicar la cantidad de veces");
-                    } else {
-                        switch (this.arrayBloques[i + 1]) {
-                            case 5:
-                                this.playerY = this.playerY + 90;
-                                break;
-                            case 6:
-                                this.playerY = this.playerY + 90 * 2;
-                                break;
-                            case 7:
-                                this.playerY = this.playerY + 90 * 3;
-                                break;
-                            case 8:
-                                this.playerY = this.playerY + 90 * 4;
-                                break;
-                            case 9:
-                                this.playerY = this.playerY + 90 * 5;
-                                break;
-                            case 10:
-                                this.playerY = this.playerY + 90 * 6;
-                                break;
-                        }
-
-                    }
-                    if (
-                        this.playerX < 52 ||
-                        this.playerX > 785 ||
-                        this.playerY < 138 ||
-                        this.playerY > 420
-                    ) {
-                        this.reset();
-                        this.life = this.life - 1;
-                    }
-                }
-                if (this.arrayBloques[i] == 11) {
-                    if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
-                        console.log("capturado Pikachu");
-                        this.capturado = true;
-
-                    } else {
-                        console.log("pokémon equivocado");
-                        this.capture = false;
-                        this.reset();
-                        this.life = this.life - 1;
-                    }
-                }
-                if (this.arrayBloques[i] == 12) {
-                    if (this.capturado) {
-                        if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
-                            console.log("Pikachu Liberado");
-                            this.capturado = false;
-
-                        } else {
-                            console.log("lugar equivocado");
-                            this.reset();
-                            this.life = this.life - 1;
-                        }
-                    }
-
-                }
-                console.log("recorrio: " + i);
-                console.log("x " + this.playerX);
-                this.sleep(2000);
             }
 
-        }
-        /*keyPressed(app) {
-                  let c = app.key;
 
-                  if (c == "d") {
-                      this.side = 3;
-                      this.playerX = this.playerX + 90;
-                  } else if (c == "a") {
-                      this.side = 2;
-                      this.playerX = this.playerX - 90;
-                  } else if (c == "w") {
-                      this.side = 4;
-                      this.playerY = this.playerY - 90;
-                  } else if (c == "s") {
-                      this.side = 1;
-                      this.playerY = this.playerY + 90;
-                  } else if (c == " ") {
-                      if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
-                          console.log("capturado Pikachu");
-                          this.capturado = true;
-                      } else {
-                          console.log("pokémon equivocado");
-                          this.capture = false;
-                          this.reset();
-                          this.life = this.life - 1;
-                      }
-                  } else if (c == "Control") {
-                      if (this.capturado) {
-                          if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
-                              console.log("Pikachu Liberado");
-                              this.capturado = false;
-                          } else {
-                              console.log("lugar equivocado");
-                              this.reset();
-                              this.life = this.life - 1;
-                          }
-                      }
-                  }
-              }*/
+            console.log("mensaje: " + this.message);
+            // this.sleep(2000);
+
+        }
+        if (
+            this.playerX < 52 ||
+            this.playerX > 785 ||
+            this.playerY < 138 ||
+            this.playerY > 420
+        ) {
+            this.message = "Te saliste del tablero";
+            this.life = this.life - 1;
+            return;
+        } else if (this.arrayBloques.includes(11) == false) {
+            this.message = "No capturaste a un pokemon";
+            this.life = this.life - 1;
+            return;
+        } else if (this.arrayBloques.includes(11)) {
+            if (!capture) {
+                this.message = "Capturaste al pokemon incorrecto o no capturaste un pokemon";
+                this.life = this.life - 1;
+                return;
+            } else if (this.arrayBloques.includes(12) == false) {
+                this.message = "No liberaste al pokemon";
+                this.life = this.life - 1;
+                return;
+            } else if (this.arrayBloques.includes(12)) {
+                if (!liberado) {
+                    this.message = "Liberaste al pokemon en el lugar incorrecto";
+                    this.life = this.life - 1;
+                    return;
+                }
+            }
+        }
+    }
+
 
     blocks(app) {
         if (this.levelActivated) {
@@ -606,6 +565,7 @@ class Game {
                 console.log("LIMPIAR");
                 this.arrayBloques = [];
                 console.log("arrayBloques= " + this.arrayBloques);
+                this.reset();
             }
 
             if (
@@ -617,6 +577,7 @@ class Game {
                 console.log("DESHACER");
                 this.arrayBloques.pop();
                 console.log("arrayBloques= " + this.arrayBloques);
+                this.reset();
             }
             if (
                 app.mouseX > 1069 &&
@@ -624,7 +585,14 @@ class Game {
                 app.mouseY > 655 &&
                 app.mouseY < 704
             ) {
+
+                if (this.playerX != 80 || this.playerY != 146) {
+                    this.reset();
+                    console.log("reset");
+                }
+
                 this.validation(app);
+
             }
         }
     }
@@ -694,7 +662,7 @@ class Game {
             }
 
             let t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
-            console.log(t);
+
             app.text(t, 900, 81);
         }
     }
