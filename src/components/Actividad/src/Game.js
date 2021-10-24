@@ -1,7 +1,11 @@
+import App from "../../App/App";
+
 class Game {
     constructor(actividad) {
         this.actividad = actividad;
         this.mainScreen = null;
+
+        this.message = "";
 
         this.tutorial1 = null;
         this.tutorial2 = null;
@@ -9,7 +13,7 @@ class Game {
         this.tutorial4 = null;
         this.tutorial5 = null;
         this.tutorial6 = null;
-        this.intro1=null;
+        this.intro1 = null;
 
         this.valid = false;
 
@@ -20,7 +24,7 @@ class Game {
         this.screen = null;
         this.level1 = null;
 
-        this.screen = 0;
+        this.screen = 8;
         this.levelActivated = null;
         this.arrayBloques = [];
         this.allowTimer = false;
@@ -47,7 +51,7 @@ class Game {
         app.background(0);
 
         this.font = app.loadFont("/game/pixelmix.ttf");
-        app.textFont(this.font, 128)
+        app.textFont(this.font, 128);
         app.textSize(20);
 
         this.mainScreen = app.loadImage("/game/mainScreen.png");
@@ -57,7 +61,7 @@ class Game {
         this.tutorial4 = app.loadImage("/game/tutorial4.png");
         this.tutorial5 = app.loadImage("/game/tutorial5.png");
         this.tutorial6 = app.loadImage("/game/tutorial6.png");
-        this.intro1=app.loadImage("/game/intro1.png");
+        this.intro1 = app.loadImage("/game/intro1.png");
         this.level1 = app.loadImage("/game/level1.png");
 
         this.playerF = app.loadImage("/game/characterfoward.png");
@@ -77,31 +81,25 @@ class Game {
         this.life = 3;
 
         this.levelActivated = false;
-        this.capture = false;
+
         this.capturado = false;
 
-        this.block1 = app.loadImage('/game/derecha.png');
-        this.block2 = app.loadImage('/game/izquierda.png');
-        this.block3 = app.loadImage('/game/arriba.png');
-        this.block4 = app.loadImage('/game/abajo.png');
-        this.block5 = app.loadImage('/game/1vez.png');
-        this.block6 = app.loadImage('/game/2veces.png');
-        this.block7 = app.loadImage('/game/3veces.png');
-        this.block8 = app.loadImage('/game/4veces.png');
-        this.block9 = app.loadImage('/game/5veces.png');
-        this.block10 = app.loadImage('/game/6veces.png');
-        this.block11 = app.loadImage('/game/capturar.png');
-        this.block12 = app.loadImage('/game/liberar.png');
+        this.block1 = app.loadImage("/game/derecha.png");
+        this.block2 = app.loadImage("/game/izquierda.png");
+        this.block3 = app.loadImage("/game/arriba.png");
+        this.block4 = app.loadImage("/game/abajo.png");
+        this.block5 = app.loadImage("/game/1vez.png");
+        this.block6 = app.loadImage("/game/2veces.png");
+        this.block7 = app.loadImage("/game/3veces.png");
+        this.block8 = app.loadImage("/game/4veces.png");
+        this.block9 = app.loadImage("/game/5veces.png");
+        this.block10 = app.loadImage("/game/6veces.png");
+        this.block11 = app.loadImage("/game/capturar.png");
+        this.block12 = app.loadImage("/game/liberar.png");
     }
 
     draw(app) {
         this.drawScreen(app);
-        app.frameRate(60);
-
-        this.drawBlocks(28, app);
-        this.timer(app);
-
-
     }
 
     mousePressed(app) {
@@ -233,7 +231,6 @@ class Game {
                     app.image(this.life1, 1080, 56);
                 }
 
-
                 if (!this.capturado) {
                     app.image(this.pikachu, 530, 152);
                 } else {
@@ -242,6 +239,8 @@ class Game {
                 app.image(this.charmander, 620, 250);
                 app.image(this.squirtle, 80, 260);
                 app.image(this.bulbasaur, 530, 432);
+
+                this.timer(app);
 
                 switch (this.side) {
                     case 1:
@@ -257,262 +256,205 @@ class Game {
                         app.image(this.playerB, this.playerX, this.playerY);
                         break;
                 }
-                this.drawBlocks(28, app);
-                if (this.valid) {
-                    this.validation(app);
 
-                }
-                break;
+                app.text(this.message, 50, 650);
+
+                this.drawBlocks(28, app);
         }
     }
-
 
     reset() {
         this.playerX = 80;
         this.playerY = 146;
         this.capturado = false;
+
+
         console.log("perdiste");
     }
 
     validation(app) {
-            if (app.frameCount % 30 == 0) {
-                for (let i = 0; i < this.arrayBloques.length; i++) {
-                    if (this.arrayBloques[i] == 1) {
-                        this.side = 3;
-                        if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
-                            this.reset();
-                            this.life = this.life - 1;
-                            console.log("recuerda indicar la cantidad de veces");
-                        } else {
+        let capture = true;
+        let liberado = true;
 
-                            switch (this.arrayBloques[i + 1]) {
-                                case 5:
-                                    this.playerX = this.playerX + 90;
+        for (let i = 0; i < this.arrayBloques.length; i++) {
+            if (this.arrayBloques[i] == 1) {
+                this.side = 3;
+                switch (this.arrayBloques[i + 1]) {
+                    case 5:
+                        this.playerX = this.playerX + 90;
+                        break;
+                    case 6:
+                        this.playerX = this.playerX + 90 * 2;
+                        break;
+                    case 7:
+                        this.playerX = this.playerX + 90 * 3;
+                        break;
+                    case 8:
+                        this.playerX = this.playerX + 90 * 4;
+                        break;
+                    case 9:
+                        this.playerX = this.playerX + 90 * 5;
+                        break;
+                    case 10:
+                        this.playerX = this.playerX + 90 * 6;
+                        break;
+                }
 
-                                    break;
-                                case 6:
-                                    this.playerX = this.playerX + (90 * 2);
+            }
+            if (this.arrayBloques[i] == 2) {
+                this.side = 2;
+                if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
 
-                                    break;
-                                case 7:
-                                    this.playerX = this.playerX + (90 * 3);
-
-                                    break;
-                                case 8:
-                                    this.playerX = this.playerX + (90 * 4);
-
-                                    break;
-                                case 9:
-                                    this.playerX = this.playerX + (90 * 5);
-
-                                    break;
-                                case 10:
-                                    this.playerX = this.playerX + (90 * 6);
-
-                                    break;
-                            }
-
-                        }
-                        if (
-                            this.playerX < 52 ||
-                            this.playerX > 785 ||
-                            this.playerY < 138 ||
-                            this.playerY > 420
-                        ) {
-                            this.reset();
-                            this.life = this.life - 1;
-                        }
-                    }
-                    if (this.arrayBloques[i] == 2) {
-                        this.side = 2;
-                        if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
-                            this.reset();
-                            this.life = this.life - 1;
-                            console.log("recuerda indicar la cantidad de veces");
-                        } else {
-
-                            switch (this.arrayBloques[i + 1]) {
-                                case 5:
-                                    this.playerX = this.playerX - 90;
-                                    break;
-                                case 6:
-                                    this.playerX = this.playerX - (90 * 2);
-                                    break;
-                                case 7:
-                                    this.playerX = this.playerX - (90 * 3);
-                                    break;
-                                case 8:
-                                    this.playerX = this.playerX - (90 * 4);
-                                    break;
-                                case 9:
-                                    this.playerX = this.playerX - (90 * 5);
-                                    break;
-                                case 10:
-                                    this.playerX = this.playerX - (90 * 6);
-                                    break;
-                            }
-
-                        }
-                        if (
-                            this.playerX < 52 ||
-                            this.playerX > 785 ||
-                            this.playerY < 138 ||
-                            this.playerY > 420
-                        ) {
-                            this.reset();
-                            this.life = this.life - 1;
-                        }
-                    }
-                    if (this.arrayBloques[i] == 3) {
-                        this.side = 4;
-
-                        if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
-                            this.reset();
-                            this.life = this.life - 1;
-                            console.log("recuerda indicar la cantidad de veces");
-                        } else {
-
-                            switch (this.arrayBloques[i + 1]) {
-                                case 5:
-                                    this.playerY = this.playerY - 90;
-                                    break;
-                                case 6:
-                                    this.playerY = this.playerY - (90 * 2);
-                                    break;
-                                case 7:
-                                    this.playerY = this.playerY - (90 * 3);
-                                    break;
-                                case 8:
-                                    this.playerY = this.playerY - (90 * 4);
-                                    break;
-                                case 9:
-                                    this.playerY = this.playerY - (90 * 5);
-                                    break;
-                                case 10:
-                                    this.playerY = this.playerY - (90 * 6);
-                                    break;
-                            }
-
-                        }
-                        if (
-                            this.playerX < 52 ||
-                            this.playerX > 785 ||
-                            this.playerY < 138 ||
-                            this.playerY > 420
-                        ) {
-                            this.reset();
-                            this.life = this.life - 1;
-                        }
-                    }
-                    if (this.arrayBloques[i] == 4) {
-                        this.side = 1;
-                        if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
-                            this.reset();
-                            this.life = this.life - 1;
-                            console.log("recuerda indicar la cantidad de veces");
-                        } else {
-
-                            switch (this.arrayBloques[i + 1]) {
-                                case 5:
-                                    this.playerY = this.playerY + 90;
-                                    break;
-                                case 6:
-                                    this.playerY = this.playerY + (90 * 2);
-                                    break;
-                                case 7:
-                                    this.playerY = this.playerY + (90 * 3);
-                                    break;
-                                case 8:
-                                    this.playerY = this.playerY + (90 * 4);
-                                    break;
-                                case 9:
-                                    this.playerY = this.playerY + (90 * 5);
-                                    break;
-                                case 10:
-                                    this.playerY = this.playerY + (90 * 6);
-                                    break;
-                            }
-
-                        }
-                        if (
-                            this.playerX < 52 ||
-                            this.playerX > 785 ||
-                            this.playerY < 138 ||
-                            this.playerY > 420
-                        ) {
-                            this.reset();
-                            this.life = this.life - 1;
-                        }
-                    }
-                    if (this.arrayBloques[i] == 11) {
-
-                        if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
-                            console.log("capturado Pikachu");
-                            this.capturado = true;
-                        } else {
-                            console.log("pokémon equivocado");
-                            this.capture = false;
-                            this.reset();
-                            this.life = this.life - 1;
-                        }
-
-                    }
-                    if (this.arrayBloques[i] == 12) {
-
-                        if (this.capturado) {
-                            if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
-                                console.log("Pikachu Liberado");
-                                this.capturado = false;
-                            } else {
-                                console.log("lugar equivocado");
-                                this.reset();
-                                this.life = this.life - 1;
-                            }
-                        }
-
+                    console.log("recuerda indicar la cantidad de veces");
+                } else {
+                    switch (this.arrayBloques[i + 1]) {
+                        case 5:
+                            this.playerX = this.playerX - 90;
+                            break;
+                        case 6:
+                            this.playerX = this.playerX - 90 * 2;
+                            break;
+                        case 7:
+                            this.playerX = this.playerX - 90 * 3;
+                            break;
+                        case 8:
+                            this.playerX = this.playerX - 90 * 4;
+                            break;
+                        case 9:
+                            this.playerX = this.playerX - 90 * 5;
+                            break;
+                        case 10:
+                            this.playerX = this.playerX - 90 * 6;
+                            break;
                     }
 
                 }
-            }
-        }
-        /*keyPressed(app) {
-            let c = app.key;
 
-            if (c == "d") {
-                this.side = 3;
-                this.playerX = this.playerX + 90;
-            } else if (c == "a") {
-                this.side = 2;
-                this.playerX = this.playerX - 90;
-            } else if (c == "w") {
+            }
+            if (this.arrayBloques[i] == 3) {
                 this.side = 4;
-                this.playerY = this.playerY - 90;
-            } else if (c == "s") {
+
+                if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+
+                    console.log("recuerda indicar la cantidad de veces");
+                } else {
+                    switch (this.arrayBloques[i + 1]) {
+                        case 5:
+                            this.playerY = this.playerY - 90;
+                            break;
+                        case 6:
+                            this.playerY = this.playerY - 90 * 2;
+                            break;
+                        case 7:
+                            this.playerY = this.playerY - 90 * 3;
+                            break;
+                        case 8:
+                            this.playerY = this.playerY - 90 * 4;
+                            break;
+                        case 9:
+                            this.playerY = this.playerY - 90 * 5;
+                            break;
+                        case 10:
+                            this.playerY = this.playerY - 90 * 6;
+                            break;
+                    }
+
+                }
+
+            }
+            if (this.arrayBloques[i] == 4) {
                 this.side = 1;
-                this.playerY = this.playerY + 90;
-            } else if (c == " ") {
+                if (this.arrayBloques[i + 1] < 5 || this.arrayBloques[i + 1] > 10) {
+
+                    console.log("recuerda indicar la cantidad de veces");
+                } else {
+                    switch (this.arrayBloques[i + 1]) {
+                        case 5:
+                            this.playerY = this.playerY + 90;
+                            break;
+                        case 6:
+                            this.playerY = this.playerY + 90 * 2;
+                            break;
+                        case 7:
+                            this.playerY = this.playerY + 90 * 3;
+                            break;
+                        case 8:
+                            this.playerY = this.playerY + 90 * 4;
+                            break;
+                        case 9:
+                            this.playerY = this.playerY + 90 * 5;
+                            break;
+                        case 10:
+                            this.playerY = this.playerY + 90 * 6;
+                            break;
+                    }
+
+                }
+
+            }
+            if (this.arrayBloques[i] == 11) {
                 if (app.dist(this.playerX, this.playerY, 530, 152) < 20) {
                     console.log("capturado Pikachu");
                     this.capturado = true;
+                    capture = true;
                 } else {
-                    console.log("pokémon equivocado");
-                    this.capture = false;
-                    this.reset();
-                    this.life = this.life - 1;
+                    this.capturado = false;
+                    this.message = "No capturaste al pokemon correcto";
+                    capture = false;
                 }
-            } else if (c == "Control") {
+            }
+            if (this.arrayBloques[i] == 12) {
                 if (this.capturado) {
                     if (app.dist(this.playerX, this.playerY, 700.87, 417) < 20) {
                         console.log("Pikachu Liberado");
                         this.capturado = false;
+                        liberado = true;
                     } else {
-                        console.log("lugar equivocado");
-                        this.reset();
-                        this.life = this.life - 1;
+                        this.message = "No liberaste al pokemon en el lugar correcto";
+
+
+                        liberado = false;
                     }
                 }
+
             }
-        }*/
+
+
+            console.log("mensaje: " + this.message);
+            // this.sleep(2000);
+
+        }
+        if (
+            this.playerX < 52 ||
+            this.playerX > 785 ||
+            this.playerY < 138 ||
+            this.playerY > 420
+        ) {
+            this.message = "Te saliste del tablero";
+            this.life = this.life - 1;
+            return;
+        } else if (this.arrayBloques.includes(11) == false) {
+            this.message = "No capturaste a un pokemon";
+            this.life = this.life - 1;
+            return;
+        } else if (this.arrayBloques.includes(11)) {
+            if (!capture) {
+                this.message = "Capturaste al pokemon incorrecto o no capturaste un pokemon";
+                this.life = this.life - 1;
+                return;
+            } else if (this.arrayBloques.includes(12) == false) {
+                this.message = "No liberaste al pokemon";
+                this.life = this.life - 1;
+                return;
+            } else if (this.arrayBloques.includes(12)) {
+                if (!liberado) {
+                    this.message = "Liberaste al pokemon en el lugar incorrecto";
+                    this.life = this.life - 1;
+                    return;
+                }
+            }
+        }
+    }
 
 
     blocks(app) {
@@ -623,6 +565,7 @@ class Game {
                 console.log("LIMPIAR");
                 this.arrayBloques = [];
                 console.log("arrayBloques= " + this.arrayBloques);
+                this.reset();
             }
 
             if (
@@ -634,6 +577,7 @@ class Game {
                 console.log("DESHACER");
                 this.arrayBloques.pop();
                 console.log("arrayBloques= " + this.arrayBloques);
+                this.reset();
             }
             if (
                 app.mouseX > 1069 &&
@@ -641,17 +585,21 @@ class Game {
                 app.mouseY > 655 &&
                 app.mouseY < 704
             ) {
-                this.valid = true;
+
+                if (this.playerX != 80 || this.playerY != 146) {
+                    this.reset();
+                    console.log("reset");
+                }
+
+                this.validation(app);
+
             }
         }
-
     }
 
     drawBlocks(posx, app) {
-
         if (this.levelActivated) {
             for (let index = 0; index < this.arrayBloques.length; index++) {
-
                 if (this.arrayBloques[index] == 1) {
                     app.image(this.block1, posx + (89 * index), 570);
                 }
@@ -704,10 +652,7 @@ class Game {
     }
 
     timer(app) {
-
         if (this.allowTimer) {
-
-
             if (app.frameCount % 60 == 0) {
                 this.s += 1;
             }
@@ -717,14 +662,19 @@ class Game {
             }
 
             let t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
-            console.log(t);
+
             app.text(t, 900, 81);
         }
-
     }
+    sleep(milliseconds) {
 
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            }
+        }
+    }
 }
-
-
 
 export default Game;
