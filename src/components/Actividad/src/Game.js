@@ -35,8 +35,8 @@ class Game {
         this.levelActivated = null;
         this.arrayBloques = [];
         this.allowTimer = false;
-        this.s = 0;
-        this.m = 0;
+        this.s = 50;
+        this.m = 4;
 
         this.block1 = null;
         this.block2 = null;
@@ -683,17 +683,28 @@ class Game {
 
     timer(app) {
         if (this.allowTimer) {
-            if (app.frameCount % 60 == 0) {
-                this.s += 1;
-            }
-            if (this.s == 60) {
-                this.s = 0;
-                this.m += 1;
+
+            let t;
+
+            if(this.m<5){
+                if (app.frameCount % 60 == 0) {
+                    this.s += 1;
+                }
+                if (this.s == 60) {
+                    this.s = 0;
+                    this.m += 1;
+                }
+    
+                t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
+    
+                app.text(t, 900, 81);
+            }else{
+                this.m=5;
+                this.s=0;
+                t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
+                app.text(t, 900, 81);
             }
 
-            let t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
-
-            app.text(t, 900, 81);
         }
     }
     sleep(milliseconds) {
