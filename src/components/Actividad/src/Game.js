@@ -6,6 +6,11 @@ class Game {
         this.mainScreen = null;
 
         this.message = "";
+        this.winLose = 0;
+
+        this.resultado = null;
+        this.resultado1 = 80;
+        this.resultado2 = 120;
 
         this.tutorial1 = null;
         this.tutorial2 = null;
@@ -13,6 +18,8 @@ class Game {
         this.tutorial4 = null;
         this.tutorial5 = null;
         this.tutorial6 = null;
+        this.perdiste = null;
+        this.ganaste = null;
         this.intro1 = null;
 
         this.valid = false;
@@ -62,6 +69,9 @@ class Game {
         this.tutorial5 = app.loadImage("/game/tutorial5.png");
         this.tutorial6 = app.loadImage("/game/tutorial6.png");
         this.intro1 = app.loadImage("/game/intro1.png");
+        this.perdiste = app.loadImage("/game/perdiste.png");
+        this.ganaste = app.loadImage("/game/ganaste1.png");
+        this.ganaste2 = app.loadImage("/game/ganaste2.png");
         this.level1 = app.loadImage("/game/level1.png");
 
         this.playerF = app.loadImage("/game/characterfoward.png");
@@ -173,7 +183,6 @@ class Game {
                 ) {
                     this.screen = 7;
                 }
-
                 break;
             case 7:
                 if (
@@ -221,7 +230,6 @@ class Game {
                 break;
 
             case 8:
-
                 app.image(this.level1, 0, 0);
                 if (this.life == 3) {
                     app.image(this.life3, 1080, 56);
@@ -229,6 +237,8 @@ class Game {
                     app.image(this.life2, 1080, 56);
                 } else if (this.life == 1) {
                     app.image(this.life1, 1080, 56);
+                } else {
+                    this.winLose = 2;
                 }
 
                 if (!this.capturado) {
@@ -257,6 +267,17 @@ class Game {
                         break;
                 }
 
+                switch (this.winLose) {
+                    case 0:
+                        break;
+                    case 1:
+                        app.image(this.ganaste, 0, 0);
+                        break;
+                    case 2:
+                        app.image(this.perdiste, 0, 0);
+                        break;
+                }
+
                 app.text(this.message, 50, 650);
 
                 this.drawBlocks(28, app);
@@ -267,9 +288,6 @@ class Game {
         this.playerX = 80;
         this.playerY = 146;
         this.capturado = false;
-
-
-        console.log("perdiste");
     }
 
     validation(app) {
@@ -411,12 +429,9 @@ class Game {
                         liberado = true;
                     } else {
                         this.message = "No liberaste al pokemon en el lugar correcto";
-
-
                         liberado = false;
                     }
                 }
-
             }
 
 
@@ -451,6 +466,8 @@ class Game {
                     this.message = "Liberaste al pokemon en el lugar incorrecto";
                     this.life = this.life - 1;
                     return;
+                } else {
+                    this.winLose = 1;
                 }
             }
         }
@@ -648,6 +665,19 @@ class Game {
                     app.image(this.block12, posx + (89 * index), 570);
                 }
             }
+        }
+    }
+
+    restaResultado(app) {
+        if (this.screen == 8) {
+            if (this.life == 3) {
+                this.resultado1 = this.resultado1;
+            } else if (this.life == 2) {
+                this.resultado1 = this.resultado1 - (this.resultado1 * 0.1);
+            } else if (this.life == 1) {
+                this.resultado1 = this.resultado1 - (this.resultado1 * 0.3);
+            }
+
         }
     }
 
