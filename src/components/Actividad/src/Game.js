@@ -675,10 +675,19 @@ class Game {
             } else if (this.life == 2) {
                 this.resultado1 = this.resultado1 - (this.resultado1 * 0.1);
             } else if (this.life == 1) {
-                this.resultado1 = this.resultado1 - (this.resultado1 * 0.3);
+                this.resultado1 = this.resultado1 - (this.resultado1 * 0.2);
             }
 
         }
+        if (this.arrayBloques.length > 8) {
+            this.resultado1 = this.resultado1 - (this.resultado1 * 0.3);
+        } else if (this.arrayBloques.length <= 8 || this.arrayBloques.length >= 7) {
+            this.resultado1 = this.resultado1 - (this.resultado1 * 0.1);
+        } else if (this.arrayBloques.length < 7) {
+            this.resultado1 = this.resultado1 - (this.resultado1);
+        }
+
+
     }
 
     timer(app) {
@@ -686,7 +695,7 @@ class Game {
 
             let t;
 
-            if(this.m<5){
+            if (this.m < 5) {
                 if (app.frameCount % 60 == 0) {
                     this.s += 1;
                 }
@@ -694,13 +703,13 @@ class Game {
                     this.s = 0;
                     this.m += 1;
                 }
-    
+
                 t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
-    
+
                 app.text(t, 900, 81);
-            }else{
-                this.m=5;
-                this.s=0;
+            } else {
+                this.m = 5;
+                this.s = 0;
                 t = app.nf(this.m, 2) + ":" + app.nf(this.s, 2);
                 app.text(t, 900, 81);
             }
