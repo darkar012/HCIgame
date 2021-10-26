@@ -295,6 +295,20 @@ class Game {
                 this.allowTimer = true;
                 this.blocks(app);
                 break;
+            case 11:
+                if (
+                    app.mouseX > 988 &&
+                    app.mouseX < 1236 &&
+                    app.mouseY > 601 &&
+                    app.mouseY < 680
+                ) {
+                    this.actividad.addResult([{ id: "Diseño de Medios Interactivo", value: this.resultado }]);
+                    this.actividad.addState("Tiempo de juego", this.tiempoTotal);
+                    this.actividad.addState("Bloques usados del juego", this.bloquesTotales);
+                    this.actividad.addState("vidas usadas", this.vidasUsadas);
+                    this.actividad.finish();
+                }
+                break;
         }
     }
 
